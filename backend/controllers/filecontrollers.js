@@ -5,7 +5,7 @@ import { router } from "./textcontrollers";
 export default express.Router()
 
 const upload = multer({
-  limits: { fileSize: 50 * 1025 * 1024 }, // 50 MB limit
+  limits: { fileSize: 50 * 1025 * 1024 },
 });
 
 router.post("/upload", upload.single("file"), async (req, res) => {
