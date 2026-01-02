@@ -5,13 +5,16 @@ export const router = express.Router();
 router.post("/text", async (req, res) => {
   const { text } = req.body;
 
+  if(!text || text.trim() === "") {
+    return res.status(400).json({ error: "Text is required and cannot be empty." });
+  }
   try {
-    await supabase.from("simple_texts").delete().neq("id", 0);
 
     const { data, error } = await supabase
       .from("simple_texts")
       .insert([{ content: text }])
-      .select();
+      .select()
+      .single;
 
     if (error) throw error;
 
