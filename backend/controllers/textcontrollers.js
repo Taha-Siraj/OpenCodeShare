@@ -9,7 +9,6 @@ router.post("/text", async (req, res) => {
     return res.status(400).json({ error: "Text is required and cannot be empty." });
   }
   try {
-
     const { data, error } = await supabase
       .from("simple_texts")
       .insert([{ content: text }])
