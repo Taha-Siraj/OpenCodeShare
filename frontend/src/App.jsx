@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
+import Header from './components/Header';
 
 function App() {
   const [text, setText] = useState([]);
@@ -42,14 +43,7 @@ function App() {
 
   return (
     <>
-    <div>
-     <input type="text" onChange={(e) => setInputText(e.target.value)} value={inputText} placeholder='Add Some thing' />
-    <button onClick={AddText}  >Add Text</button>
-    </div>
-    <div>
-      <p>{text.map((item , index) => (<p key={index[0]}>{item}</p>     
-      ))}</p>
-    </div>
+    <Header />
     </>
   )
 }
