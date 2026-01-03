@@ -1,5 +1,5 @@
 import express from 'express';
-import { upload } from '../controllers/filecontrollers';
+import { upload } from '../controllers/filecontrollers.js';
 
 
 const router = express.Router();

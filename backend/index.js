@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import textRoutes from './routes/textRoutes.js';
-
+import fileRoutes from  './routes/fileRoutes.js'
 const app = express();
 app.use(express.json())
 app.use(cors());
