@@ -10,6 +10,7 @@ const port = 5000;
 
 
 app.use("/api", textRoutes);
+app.use("/api", fileRoutes);
 
 
 
