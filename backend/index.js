@@ -15,7 +15,6 @@ app.use("/api", textRoutes);
 
 
 
-
 app.get('api/health', (req, res) => {
   res.status(200).send('Server is healthy');
 });
