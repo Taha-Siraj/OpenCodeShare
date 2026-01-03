@@ -8,7 +8,7 @@ export const upload  = async  (req, res) => {
   }
 
   try {
-    const {data , error} = await supabase.storage.from('file_shares').upload(file.originalname, file.buffer, {
+    const {data , error} = await supabase.storage.from('files').upload(file.originalname, file.buffer, {
       contentType: file.mimetype,
       upsert: false,
     });
