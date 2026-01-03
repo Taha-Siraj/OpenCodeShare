@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import Header from './components/Header';
+import Text from './pages/text';
 
 function App() {
   const [text, setText] = useState([]);
@@ -44,6 +45,7 @@ function App() {
   return (
     <>
     <Header />
+    <Text/>
     </>
   )
 }
