@@ -4,4 +4,4 @@ const storage = multer.memoryStorage();
 
 export const uploadMiddleware = multer({
     storage: storage
-})
+}).array('files', 10)
