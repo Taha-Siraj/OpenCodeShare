@@ -16,7 +16,7 @@ app.use("/api", fileRoutes);
 
 
 
-app.get('api/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.status(200).send('Server is healthy');
 });
 

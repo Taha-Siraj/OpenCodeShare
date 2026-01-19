@@ -51,24 +51,41 @@ export const getFiles = async (req, res) => {
   try {
     const { data, error } = await supabase.storage
       .from("files")
-      .list("", {
-        limit: 100,
-        sortBy: { column: "created_at", order: "desc" },
-      });
+      .list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } });
 
-    if (error) {
-      console.error(error);
-      return res.status(500).json({ error: "Failed to fetch files" });
-    }
+    if (error) return res.status(500).json({ error: "Failed to fetch files" });
 
     const files = data.map(file => ({
-      name: file.name,
+      stored_name: file.name,
+      original_name: file.name.split("-").slice(1).join("-"),
       size: file.metadata?.size || 0,
       uploaded_at: file.created_at,
     }));
 
     res.json(files);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
 
+// Download API
+export const downloadFile = async (req, res) => {
+  try {
+    const storedName = req.params.name;
+
+    const { data, error } = await supabase.storage
+      .from("files")
+      .download(storedName);
+
+    if (error) return res.status(404).json({ error: "File not found" });
+
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=${storedName.split("-").slice(1).join("-")}`
+    );
+
+    res.send(data);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
