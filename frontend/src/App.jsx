@@ -1,53 +1,28 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios';
+import { Routes, Route } from 'react-router-dom';
+import { Toaster } from '@/components/ui/sonner';
 import Header from './components/Header';
-import Text from './pages/text';
+import Footer from './components/Fotter';
+import Home from './pages/Home';
+import File from './pages/File';
+import Text from './pages/Text';
+import HowItWorks from './pages/HowItWorks';
 
 function App() {
-  const [text, setText] = useState([]);
-  const [inputText , setInputText] = useState('')
-  let baseUrl = 'http://localhost:5000'
-
-
-
-  const fetchText = async () => {
-     try {
-      let res = await axios.get('http://localhost:5000/gettext');
-
-      console.log(res.data.data)
-      setInputText('')
-     let rev = res.data.data.reverse()
-      setText(rev)  
-     
-    } catch (error) {
-      console.log(error.response.data.error)
-      return
-    }
-   }
-   
-  
-
-
-  const AddText = async () => {
-
-    try {
-      let res = await axios.post(`${baseUrl}/text`,{
-        text: inputText
-      })
-      console.log(res.data)
-      fetchText()
-    } catch (error) {
-      console.log(error.response.data.erro)
-    }
-  }
-
-
   return (
-    <>
-    <Header />
-    <Text/>
-    </>
-  )
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/files" element={<File />} />
+          <Route path="/text" element={<Text />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+        </Routes>
+      </main>
+      <Footer />
+      <Toaster />
+    </div>
+  );
 }
 
-export default App
+export default App;
