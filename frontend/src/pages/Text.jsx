@@ -42,52 +42,77 @@ const Text = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
             <Toaster position="bottom-right" />
 
-            <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-6">
+            <div className="w-full max-w-3xl bg-white rounded-xl border border-gray-200 p-6">
                 {/* Header */}
-                <h1 className="text-2xl font-bold text-center mb-6">
-                    Share Text Instantly
-                </h1>
+                <div className="flex items-center gap-2 mb-4">
+                    <span className="text-xl">↗</span>
+                    <h1 className="text-2xl font-semibold">Share Text Snippet</h1>
+                </div>
 
                 {/* Form */}
-                <form onSubmit={createText} className="flex gap-3 mb-6">
-                    <input
-                        type="text"
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        placeholder="Enter your text..."
-                        className="flex-1 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                <form onSubmit={createText}>
+                    <div className="relative">
+                        <textarea
+                            value={inputText}
+                            onChange={(e) => setInputText(e.target.value)}
+                            placeholder="Paste your text here..."
+                            className="
+                w-full
+                h-56
+                resize-none
+                border-2
+                border-black
+                rounded-lg
+                p-4
+                font-mono
+                text-sm
+                focus:outline-none
+              "
+                        />
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition disabled:opacity-50"
-                    >
-                        {loading ? "Sharing..." : "Share"}
-                    </button>
+                        {/* character count */}
+                        <span className="absolute bottom-3 right-4 text-sm text-gray-500">
+                            {inputText.length} characters
+                        </span>
+                    </div>
+
+                    {/* Button */}
+                    <div className="flex justify-end mt-4">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="
+                bg-black
+                text-white
+                px-6
+                py-2.5
+                rounded-lg
+                font-medium
+                hover:bg-gray-900
+                transition
+                disabled:opacity-50
+              "
+                        >
+                            {loading ? "Publishing..." : "Publish Snippet"}
+                        </button>
+                    </div>
                 </form>
 
-                {/* Text List */}
-                <div className="space-y-4">
-                    {texts.length === 0 && (
-                        <p className="text-center text-gray-500">
-                            No shared text yet
-                        </p>
-                    )}
-
+                {/* List */}
+                <div className="mt-8 space-y-4">
                     {texts.map((item) => (
                         <div
                             key={item._id}
-                            className="border border-gray-200 rounded-xl p-4 hover:shadow transition"
+                            className="border border-gray-200 rounded-lg p-4"
                         >
-                            <p className="text-gray-800 break-words">
+                            <p className="text-gray-800 break-words font-mono text-sm">
                                 {item.content}
                             </p>
 
-                            <div className="flex justify-between text-sm text-gray-500 mt-3">
+                            <div className="flex justify-between text-xs text-gray-500 mt-2">
                                 <span>{moment(item.createdAt).fromNow()}</span>
                                 <span>{item.content.length} chars</span>
                             </div>
