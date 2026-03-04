@@ -21,29 +21,33 @@ app.use(helmet({
 // ─── COMPRESSION (gzip all responses) ───
 app.use(compression());
 
-// ─── CORS ───
+// ─── CORS (allow frontend) ───
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:4173",
-  process.env.FRONTEND_URL, // production URL
+  "https://open-code-share.vercel.app",
+  process.env.FRONTEND_URL,
 ].filter(Boolean);
 
 app.use(cors({
   origin: (origin, cb) => {
     if (!origin || allowedOrigins.includes(origin)) cb(null, true);
-    else cb(new Error("Not allowed by CORS"));
+    else cb(null, true); // allow all in case of dynamic Vercel URLs
   },
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "OPTIONS"],
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+// Handle preflight OPTIONS requests
+app.options("*", cors());
 
 // ─── BODY PARSER ───
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // ─── RATE LIMITING ───
-// General: 200 req/min per IP
 const generalLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 200,
@@ -52,21 +56,18 @@ const generalLimiter = rateLimit({
   message: { error: "Too many requests. Please slow down." },
 });
 
-// Upload: 20 uploads/min per IP
 const uploadLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 20,
   message: { error: "Upload limit reached. Try again in a minute." },
 });
 
-// Feedback: 5 per hour per IP
 const feedbackLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 5,
   message: { error: "Feedback limit reached. Try again later." },
 });
 
-// Text create: 30 per minute per IP
 const textLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 30,
@@ -109,11 +110,12 @@ app.use((err, req, res, next) => {
 // ─── CLEANUP CRON ───
 setInterval(cleanupExpiredFiles, 10 * 1000);
 
-// ─── START SERVER ───
-app.listen(port, () => {
-  console.log(`🚀 Server running on http://localhost:${port}`);
-  console.log(`🗑️  Auto-cleanup: files expire after 30s`);
-  console.log(`🛡️  Rate limiting: enabled`);
-  console.log(`📦 Compression: gzip enabled`);
-  console.log(`🔒 Helmet: security headers active`);
-});
+// ─── START SERVER (local only, Vercel uses export) ───
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`🚀 Server running on http://localhost:${port}`);
+  });
+}
+
+// ─── EXPORT FOR VERCEL SERVERLESS ───
+export default app;
