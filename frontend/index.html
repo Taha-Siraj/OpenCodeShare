@@ -2,13 +2,81 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary SEO -->
+    <title>OpenCodeShare</title>
+    <meta name="description" content="OpenCodeShare — Free, fast, and secure file & text sharing for developers. Share code snippets and files instantly. No sign-up needed." />
+    <meta name="keywords" content="code sharing, file sharing, text sharing, developer tools, open source, free file upload, share code online, instant text sharing, send files without login, code paste, snippet sharing" />
+    <meta name="author" content="OpenCodeShare" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://opencodeshare.vercel.app" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://opencodeshare.vercel.app" />
+    <meta property="og:title" content="OpenCodeShare — Instant File & Text Sharing" />
+    <meta property="og:description" content="Share code and files instantly. Free, fast, secure. No sign-up required." />
+    <meta property="og:site_name" content="OpenCodeShare" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="OpenCodeShare — Instant File & Text Sharing" />
+    <meta name="twitter:description" content="Share code and files instantly. Free, fast, secure." />
+
+    <!-- Theme & Appearance -->
+    <meta name="theme-color" content="#10b981" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="OpenCodeShare" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- Fonts — preconnect for speed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data (JSON-LD) for Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "OpenCodeShare",
+      "url": "https://opencodeshare.vercel.app",
+      "description": "Free, fast, and secure file and text sharing for developers. No sign-up required.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Instant text sharing",
+        "File upload up to 50MB",
+        "Auto-delete after 30 seconds",
+        "No registration required",
+        "Cross-platform support",
+        "Dark and light mode"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="text-align:center;padding:40px;font-family:system-ui;">
+        <h1>OpenCodeShare</h1>
+        <p>You need to enable JavaScript to run this app.</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

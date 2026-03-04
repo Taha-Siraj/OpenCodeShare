@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://opencodeshare.vercel.app/sitemap.xml
