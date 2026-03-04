@@ -1,97 +1,116 @@
-import React from 'react';
-import { UploadCloud, ShieldAlert, Zap, Clock, Globe, Lock } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
+import { Upload, Shield, Download, ArrowRight, HardDrive, Globe, Zap } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 
-const AirforceShare = () => {
+const HowItWorks = () => {
+    const { isDark } = useTheme();
+    const t1 = isDark ? "#e4e8f0" : "#1a1d26";
+    const t2 = isDark ? "#6b7280" : "#6b7280";
+    const bg = isDark ? "#0a0a0f" : "#f4f6f9";
+    const cardBg = isDark ? "#161923" : "#ffffff";
+    const bdr = isDark ? "#252836" : "#e2e6ed";
+
+    const steps = [
+        { icon: Upload, color: "#10b981", num: "01", title: "Upload or Paste", desc: "Select files (up to 50MB) or paste text. Your content is instantly processed and ready to share." },
+        { icon: Shield, color: "#06b6d4", num: "02", title: "Secure Transfer", desc: "Data is transmitted securely. Works on any network — WiFi, cellular, or wired connections." },
+        { icon: Download, color: "#f59e0b", num: "03", title: "Instant Access", desc: "Anyone can access and download the shared content immediately. No account needed." },
+    ];
+
+    const stats = [
+        { icon: HardDrive, label: "Payload Limit", value: "50 MB / File" },
+        { icon: Globe, label: "Network", value: "Cross-Device" },
+        { icon: Zap, label: "Speed", value: "Real-Time" },
+    ];
+
     return (
-        <section className="bg-[#0a0f1a] text-slate-200 py-16 px-4 font-mono">
-            <div className="max-w-6xl mx-auto">
+        <div style={{ background: bg, minHeight: "100vh", padding: "40px 20px 60px", transition: "background 0.3s" }}>
+            <Helmet>
+                <title>How It Works — OpenCodeShare</title>
+                <meta name="description" content="Learn how OpenCodeShare works in 3 simple steps. Upload, share, and access files instantly with no sign-up." />
+                <link rel="canonical" href="https://opencodeshare.vercel.app/how-it-works" />
+            </Helmet>
 
-                {/* Header - No fluff, just mission focus */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-black tracking-widest uppercase border-b-2 border-blue-900 inline-block pb-2">
-                        Protocol: OpenCodeShare
-                    </h2>
-                    <p className="mt-4 text-slate-500 max-w-2xl mx-auto">
-                        Secure asset transmission across non-secure networks.
-                        End-to-end encryption active. Standard limit: 50MB per packet.
-                    </p>
+            <div style={{ maxWidth: 620, margin: "0 auto" }}>
+                {/* Header */}
+                <div style={{ textAlign: "center", marginBottom: 32 }}>
+                    <div style={{
+                        display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px",
+                        borderRadius: 50, fontSize: 11, fontWeight: 600, letterSpacing: "0.06em",
+                        textTransform: "uppercase", marginBottom: 14,
+                        background: isDark ? "rgba(16,185,129,0.1)" : "#ecfdf5",
+                        color: "#10b981", border: `1px solid ${isDark ? "rgba(16,185,129,0.15)" : "#d1fae5"}`,
+                    }}>
+                        ⚡ Protocol
+                    </div>
+                    <h1 style={{ fontSize: "clamp(22px, 4vw, 30px)", fontWeight: 700, color: t1, marginBottom: 8 }}>
+                        How <span style={{ color: "#10b981" }}>OpenCodeShare</span> Works
+                    </h1>
+                    <p style={{ fontSize: 14, color: t2 }}>Three simple steps to share anything securely.</p>
                 </div>
 
-                {/* Top Stats - Industrial Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mb-20 border border-slate-800">
-                    <div className="p-6 border-r border-slate-800 flex items-center gap-4 bg-slate-900/50">
-                        <Lock className="text-blue-500" size={24} />
-                        <div>
-                            <p className="text-xs text-slate-500 uppercase">Payload Limit</p>
-                            <p className="font-bold text-xl">50 MB / File</p>
-                        </div>
-                    </div>
-                    <div className="p-6 border-r border-slate-800 flex items-center gap-4 bg-slate-900/50">
-                        <Globe className="text-blue-500" size={24} />
-                        <div>
-                            <p className="text-xs text-slate-500 uppercase">Network</p>
-                            <p className="font-bold text-sm">Cross-Network Enabled</p>
-                        </div>
-                    </div>
-                    <div className="p-6 flex items-center gap-4 bg-slate-900/50">
-                        <Zap className="text-yellow-500" size={24} />
-                        <div>
-                            <p className="text-xs text-slate-500 uppercase">Latency</p>
-                            <p className="font-bold text-xl">Real-Time Sync</p>
-                        </div>
-                    </div>
+                {/* Stats */}
+                <div style={{
+                    display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8,
+                    padding: 16, borderRadius: 14, marginBottom: 28,
+                    background: cardBg, border: `1px solid ${bdr}`,
+                }}>
+                    {stats.map((s, i) => {
+                        const Icon = s.icon;
+                        return (
+                            <div key={i} style={{ textAlign: "center", padding: "8px 4px" }}>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4, marginBottom: 4 }}>
+                                    <Icon size={12} style={{ color: t2 }} />
+                                    <span style={{ fontSize: 10, color: t2, textTransform: "uppercase", letterSpacing: "0.04em", fontWeight: 500 }}>{s.label}</span>
+                                </div>
+                                <span style={{ fontSize: 14, fontWeight: 700, color: t1 }}>{s.value}</span>
+                            </div>
+                        );
+                    })}
                 </div>
 
-                {/* 1-2-3 Workflow - Visualizing the Mission */}
-                <div className="grid md:grid-cols-3 gap-12 text-center relative">
-                    {/* Step 1 */}
-                    <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-sm bg-blue-900/30 flex items-center justify-center border border-blue-500 mb-6">
-                            <UploadCloud className="text-blue-400" />
-                        </div>
-                        <h3 className="text-lg font-bold uppercase mb-3 text-blue-400">1. Deploy Asset</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            Select technical documentation or code payloads (max 50MB).
-                            Automatic hashing initiated.
-                        </p>
-                    </div>
-
-                    {/* Step 2 */}
-                    <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-sm bg-green-900/30 flex items-center justify-center border border-green-500 mb-6">
-                            <ShieldAlert className="text-green-400" />
-                        </div>
-                        <h3 className="text-lg font-bold uppercase mb-3 text-green-400">2. Secure Relay</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            Files bypass standard firewalls via encrypted tunnel.
-                            Works over LTE, Satcom, or Wi-Fi.
-                        </p>
-                    </div>
-
-                    {/* Step 3 */}
-                    <div className="flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-sm bg-orange-900/30 flex items-center justify-center border border-orange-500 mb-6">
-                            <Clock className="text-orange-400" />
-                        </div>
-                        <h3 className="text-lg font-bold uppercase mb-3 text-orange-400">3. Intercept</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            Receiver captures transmission instantly.
-                            Data is volatile: 20s window before self-destruct.
-                        </p>
-                    </div>
+                {/* Steps */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                    {steps.map((s, i) => {
+                        const Icon = s.icon;
+                        return (
+                            <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                                style={{
+                                    display: "flex", alignItems: "flex-start", gap: 16, padding: 20,
+                                    borderRadius: 14, background: cardBg, border: `1px solid ${bdr}`,
+                                    transition: "all 0.2s",
+                                }}>
+                                <div style={{
+                                    width: 40, height: 40, borderRadius: 10, flexShrink: 0,
+                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                    background: `${s.color}15`,
+                                }}>
+                                    <Icon size={18} style={{ color: s.color }} />
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                    <h3 style={{ fontSize: 15, fontWeight: 600, color: t1, marginBottom: 4 }}>{s.title}</h3>
+                                    <p style={{ fontSize: 13, color: t2, lineHeight: 1.6 }}>{s.desc}</p>
+                                </div>
+                                <span style={{ fontSize: 12, fontWeight: 600, color: isDark ? "#374151" : "#d1d5db", flexShrink: 0 }}>{s.num}</span>
+                            </motion.div>
+                        );
+                    })}
                 </div>
 
-                {/* Footer Warning - Crucial for Airforce Aesthetic */}
-                <div className="mt-20 p-4 bg-red-950/20 border-l-4 border-red-600 flex items-center gap-4">
-                    <Clock className="text-red-500 shrink-0" size={20} />
-                    <p className="text-xs text-red-400 font-bold uppercase tracking-tighter">
-                        Security Warning: All content is purged 20 seconds after last access. No logs maintained.
-                    </p>
+                {/* CTA */}
+                <div style={{ textAlign: "center" }}>
+                    <Link to="/text" style={{
+                        display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 28px",
+                        borderRadius: 12, fontSize: 14, fontWeight: 600, textDecoration: "none",
+                        background: "#10b981", color: "#fff", boxShadow: "0 4px 14px rgba(16,185,129,0.25)",
+                    }}>
+                        Try It Now <ArrowRight size={14} />
+                    </Link>
                 </div>
-
             </div>
-        </section>
+        </div>
     );
 };
 
-export default AirforceShare;
+export default HowItWorks;
