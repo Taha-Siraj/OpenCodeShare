@@ -55,8 +55,8 @@ export const upload = async (req, res) => {
 // --- GET FILES ---
 export const getFiles = async (req, res) => {
   try {
-    // Run cleanup asynchronously in background
-    cleanupExpiredFiles().catch(console.error);
+    // Await cleanup! Vercel kills background tasks immediately after response
+    await cleanupExpiredFiles();
 
     const { data: dbFiles, error: dbError } = await supabase
       .from("file_metadata")
