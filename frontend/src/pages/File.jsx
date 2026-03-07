@@ -63,7 +63,8 @@ const FilePage = () => {
 
             for (const file of queue) {
                 // Remove special characters to prevent Supabase URL/CORS errors
-                const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+                // Replace any non-alphanumeric char (except dot) with a dash to create a 100% safe key
+                const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, "-");
                 const storedName = `${uuidv4()}-${safeName}`;
 
                 // 1. Direct upload to Supabase (Bypasses Vercel 4.5MB limit!)
