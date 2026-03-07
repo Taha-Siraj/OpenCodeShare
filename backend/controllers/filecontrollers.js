@@ -55,6 +55,9 @@ export const upload = async (req, res) => {
 // --- GET FILES ---
 export const getFiles = async (req, res) => {
   try {
+    // Run cleanup asynchronously in background
+    cleanupExpiredFiles().catch(console.error);
+
     const { data: dbFiles, error: dbError } = await supabase
       .from("file_metadata")
       .select("*")
