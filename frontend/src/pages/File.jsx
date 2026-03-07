@@ -5,6 +5,8 @@ import moment from "moment";
 import { Helmet } from "react-helmet-async";
 import { Upload, Download, Trash2, X, Loader2, RefreshCw, CloudUpload, CheckCircle2, FileText, File as FileIcon, Image, FileCode, Film, Music, Archive, HardDrive, Eye } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
+import { supabase } from "@/supabase";
+import { v4 as uuidv4 } from "uuid";
 
 const BASE = API.defaults.baseURL;
 
@@ -57,20 +59,50 @@ const FilePage = () => {
         if (!queue.length) return toast.error("Select files first");
         try {
             setUploading(true);
-            const fd = new FormData();
-            queue.forEach((f) => fd.append("files", f));
-            const res = await API.post("/upload", fd, { headers: { "Content-Type": "multipart/form-data" } });
-            toast.success(`${queue.length} file(s) uploaded!`);
-            if (res.data?.files) {
-                const newFiles = res.data.files.map(f => ({
-                    stored_name: f.stored_name, original_name: f.name, size: f.size, type: f.type, uploaded_at: new Date().toISOString(),
-                }));
-                setFiles(prev => [...newFiles, ...prev]);
+            const savedFiles = [];
+
+            for (const file of queue) {
+                const storedName = `${uuidv4()}-${file.name}`;
+
+                // 1. Direct upload to Supabase (Bypasses Vercel 4.5MB limit!)
+                const { error: uploadError } = await supabase.storage
+                    .from("files")
+                    .upload(storedName, file, { contentType: file.type });
+
+                if (uploadError) throw uploadError;
+
+                // 2. Save metadata directly to Supabase DB
+                const { error: dbError } = await supabase
+                    .from("file_metadata")
+                    .insert({
+                        stored_name: storedName,
+                        original_name: file.name,
+                        size: file.size,
+                        type: file.type || "application/octet-stream",
+                    });
+
+                if (dbError) throw dbError;
+
+                savedFiles.push({
+                    stored_name: storedName,
+                    original_name: file.name,
+                    size: file.size,
+                    type: file.type || "application/octet-stream",
+                    uploaded_at: new Date().toISOString()
+                });
             }
+
+            toast.success(`${queue.length} file(s) uploaded!`);
+            setFiles(prev => [...savedFiles, ...prev]);
             setQueue([]);
-            load();
-        } catch (err) { toast.error(err?.response?.data?.error || "Upload failed"); }
-        finally { setUploading(false); }
+            // Still call API to trigger background cleanup silently
+            API.get("/files").catch(() => { });
+        } catch (err) {
+            console.error("Upload error:", err);
+            toast.error(err.message || "Upload failed");
+        } finally {
+            setUploading(false);
+        }
     };
 
     const dl = (stored, original) => {
