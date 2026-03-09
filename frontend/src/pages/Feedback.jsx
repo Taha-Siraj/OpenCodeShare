@@ -24,7 +24,7 @@ const Feedback = () => {
     const inputBg = isDark ? "#1c1f2e" : "#f8f9fb";
     const inputBdr = isDark ? "#2d3044" : "#dde1e8";
 
-    // Client-side email validation
+    
     const validateEmail = (val) => {
         if (!val) { setEmailError(""); return; }
 
@@ -87,7 +87,7 @@ const Feedback = () => {
             </Helmet>
 
             <div style={{ maxWidth: 500, margin: "0 auto" }}>
-                {/* Header */}
+                {}
                 <div style={{ textAlign: "center", marginBottom: 28 }}>
                     <h1 style={{ fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: t1, marginBottom: 6 }}>
                         Share Your <span style={{ color: "#10b981" }}>Thoughts</span>
@@ -108,7 +108,7 @@ const Feedback = () => {
                         </div>
                     ) : (
                         <form onSubmit={submit}>
-                            {/* Rating */}
+                            {}
                             <div style={{ marginBottom: 20 }}>
                                 <label style={labelStyle}>How's your experience? *</label>
                                 <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
@@ -134,7 +134,7 @@ const Feedback = () => {
                                 </div>
                             </div>
 
-                            {/* Name + Email */}
+                            {}
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }} className="feedbackRow">
                                 <div>
                                     <label style={labelStyle}>Name (optional)</label>
@@ -156,7 +156,7 @@ const Feedback = () => {
                                 </div>
                             </div>
 
-                            {/* Message */}
+                            {}
                             <div style={{ marginBottom: 20 }}>
                                 <label style={labelStyle}>Message *</label>
                                 <textarea value={message} onChange={(e) => setMessage(e.target.value)}
@@ -164,7 +164,7 @@ const Feedback = () => {
                                     rows={5} style={{ ...inputStyle, resize: "none", lineHeight: 1.6 }} />
                             </div>
 
-                            {/* Submit */}
+                            {}
                             <button type="submit" disabled={loading || !!emailError} style={{
                                 width: "100%", padding: "12px 0", borderRadius: 12, fontSize: 14, fontWeight: 600,
                                 display: "flex", alignItems: "center", justifyContent: "center", gap: 8,

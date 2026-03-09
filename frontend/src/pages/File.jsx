@@ -62,19 +62,19 @@ const FilePage = () => {
             const savedFiles = [];
 
             for (const file of queue) {
-                // Remove special characters to prevent Supabase URL/CORS errors
-                // Replace any non-alphanumeric char (except dot) with a dash to create a 100% safe key
+                
+                
                 const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, "-");
                 const storedName = `${uuidv4()}-${safeName}`;
 
-                // 1. Direct upload to Supabase (Bypasses Vercel 4.5MB limit!)
+                
                 const { error: uploadError } = await supabase.storage
                     .from("files")
                     .upload(storedName, file, { contentType: file.type });
 
                 if (uploadError) throw uploadError;
 
-                // 2. Save metadata directly to Supabase DB
+                
                 const { error: dbError } = await supabase
                     .from("file_metadata")
                     .insert({
@@ -98,7 +98,7 @@ const FilePage = () => {
             toast.success(`${queue.length} file(s) uploaded!`);
             setFiles(prev => [...savedFiles, ...prev]);
             setQueue([]);
-            // Still call API to trigger background cleanup silently
+            
             API.get("/files").catch(() => { });
         } catch (err) {
             console.error("Upload error:", err);
@@ -131,7 +131,7 @@ const FilePage = () => {
                 <link rel="canonical" href="https://opencodeshare.vercel.app/files" />
             </Helmet>
 
-            {/* Image Preview Modal */}
+            {}
             {preview && (
                 <div onClick={() => setPreview(null)} style={{
                     position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)",
@@ -151,7 +151,7 @@ const FilePage = () => {
             )}
 
             <div style={{ maxWidth: 900, margin: "0 auto" }}>
-                {/* Header */}
+                {}
                 <div style={{ textAlign: "center", marginBottom: 28 }}>
                     <h1 style={{ fontSize: "clamp(22px, 4vw, 28px)", fontWeight: 700, color: t1, marginBottom: 6 }}>
                         Upload & Share <span style={{ color: "#10b981" }}>Files</span>
@@ -159,7 +159,7 @@ const FilePage = () => {
                     <p style={{ fontSize: 14, color: t2 }}>Max 50MB · All formats · Auto-deletes after 30s</p>
                 </div>
 
-                {/* Dropzone */}
+                {}
                 <div style={{
                     borderWidth: 2, borderStyle: "dashed", borderRadius: 16, padding: "36px 20px",
                     borderColor: drag ? "#10b981" : bdr, textAlign: "center", cursor: "pointer",
@@ -184,7 +184,7 @@ const FilePage = () => {
                     <p style={{ fontSize: 12, color: t2 }}>or <span style={{ color: "#10b981", fontWeight: 500 }}>browse from device</span></p>
                 </div>
 
-                {/* Upload Queue */}
+                {}
                 {queue.length > 0 && (
                     <div style={{ background: cardBg, border: `1px solid ${bdr}`, borderRadius: 16, padding: 20, marginBottom: 20 }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
@@ -262,7 +262,7 @@ const FilePage = () => {
                                         background: isDark ? "#12141c" : "#fafbfc",
                                         transition: "all 0.2s",
                                     }}>
-                                        {/* Preview area */}
+                                        {}
                                         {img ? (
                                             <div
                                                 onClick={() => setPreview(f)}
@@ -300,7 +300,7 @@ const FilePage = () => {
                                             </div>
                                         )}
 
-                                        {/* Info */}
+                                        {}
                                         <div style={{ padding: "12px 14px" }}>
                                             <p style={{
                                                 fontSize: 13, fontWeight: 500, color: t1, marginBottom: 4,

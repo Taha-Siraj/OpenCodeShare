@@ -18,7 +18,7 @@ const Fotter = () => {
         <footer style={{ background: bg, borderTop: `1px solid ${bdr}`, padding: "40px 16px 24px", transition: "all 0.3s" }}>
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 32 }} className="footerGrid">
-                    {/* Brand */}
+                    {}
                     <div>
                         <Link to="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", marginBottom: 10 }}>
                             <img src="/logo.png" alt="OpenCodeShare" style={{ width: 28, height: 28, borderRadius: 7 }} />
@@ -29,7 +29,7 @@ const Fotter = () => {
                         </p>
                     </div>
 
-                    {/* Links */}
+                    {}
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
                         <div>
                             <h4 style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: t2, marginBottom: 10 }}>Pages</h4>
@@ -48,7 +48,7 @@ const Fotter = () => {
                     </div>
                 </div>
 
-                {/* Bottom */}
+                {}
                 <div style={{ marginTop: 32, paddingTop: 20, borderTop: `1px solid ${bdr}`, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
                     <p style={{ fontSize: 12, color: t2 }}>© {yr} OpenCodeShare. All rights reserved.</p>
                     <p style={{ fontSize: 12, color: t2, display: "flex", alignItems: "center", gap: 4 }}>

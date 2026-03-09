@@ -1,7 +1,6 @@
 import { supabase } from "../config/supabaseClient.js";
 import nodemailer from "nodemailer";
 
-// Disposable/temporary email domains to block
 const blockedDomains = [
   "tempmail.com", "guerrillamail.com", "mailinator.com", "throwaway.email",
   "temp-mail.org", "fakeinbox.com", "sharklasers.com", "guerrillamailblock.com",
@@ -13,7 +12,6 @@ const blockedDomains = [
   "tmpmail.net", "tmpmail.org", "bupmail.com", "discard.email",
 ];
 
-// Allowed real email providers
 const allowedDomains = [
   "gmail.com", "outlook.com", "hotmail.com", "yahoo.com", "icloud.com",
   "live.com", "msn.com", "aol.com", "protonmail.com", "zoho.com",
@@ -39,7 +37,6 @@ const validateEmail = (email) => {
   return { valid: true };
 };
 
-// Email transporter
 const createTransporter = () => {
   if (!process.env.SMTP_EMAIL || !process.env.SMTP_PASSWORD) {
     console.warn("⚠️  SMTP credentials not configured. Emails will not be sent.");
@@ -59,7 +56,6 @@ export const submitFeedback = async (req, res) => {
   try {
     const { name, email, message, rating } = req.body;
 
-    // Validation
     if (!message || !message.trim()) {
       return res.status(400).json({ error: "Message is required" });
     }
@@ -67,7 +63,6 @@ export const submitFeedback = async (req, res) => {
       return res.status(400).json({ error: "Please select a rating (1-5)" });
     }
 
-    // Email validation if provided
     if (email) {
       const check = validateEmail(email);
       if (!check.valid) {
@@ -75,7 +70,6 @@ export const submitFeedback = async (req, res) => {
       }
     }
 
-    // Save to Supabase
     const { data, error: dbError } = await supabase
       .from("feedback")
       .insert({
@@ -92,7 +86,6 @@ export const submitFeedback = async (req, res) => {
       return res.status(500).json({ error: "Failed to save feedback" });
     }
 
-    // Send email notification
     const transporter = createTransporter();
     if (transporter && process.env.NOTIFY_EMAIL) {
       const stars = "⭐".repeat(rating);
@@ -141,7 +134,6 @@ export const submitFeedback = async (req, res) => {
         console.log("✅ Feedback email sent to", process.env.NOTIFY_EMAIL);
       } catch (emailErr) {
         console.error("Email send error:", emailErr.message);
-        // Don't fail the request — feedback is saved in DB
       }
     }
 

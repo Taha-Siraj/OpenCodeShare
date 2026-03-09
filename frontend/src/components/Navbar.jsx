@@ -37,7 +37,7 @@ const Navbar = () => {
       transition: "all 0.3s ease",
     }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "10px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        {/* Logo */}
+        {}
         <Link to="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}>
           <img src="/logo.png" alt="OpenCodeShare" style={{
             width: 32, height: 32, borderRadius: 8,
@@ -47,7 +47,7 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Desktop Nav — hidden below 900px */}
+        {}
         <div className="navDesktop" style={{ display: "flex", alignItems: "center", gap: 2, marginLeft: 24, marginRight: 24 }}>
           {links.map((l) => {
             const Icon = l.icon;
@@ -66,7 +66,7 @@ const Navbar = () => {
           })}
         </div>
 
-        {/* Right side */}
+        {}
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
           <button onClick={toggleTheme} style={{
             width: 36, height: 36, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center",
@@ -81,7 +81,7 @@ const Navbar = () => {
             </AnimatePresence>
           </button>
 
-          {/* CTA — desktop only */}
+          {}
           <Link to="/text" className="navCTA" style={{
             display: "flex", alignItems: "center", gap: 6, padding: "8px 18px",
             borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none",
@@ -91,7 +91,7 @@ const Navbar = () => {
             <Code2 size={14} /> Start Sharing
           </Link>
 
-          {/* Hamburger — mobile only */}
+          {}
           <button className="navHamburger" onClick={() => setOpen(!open)} style={{
             width: 36, height: 36, borderRadius: 8, display: "none", alignItems: "center", justifyContent: "center",
             border: "none", cursor: "pointer",
@@ -102,7 +102,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
+      {}
       <AnimatePresence>
         {open && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}
@@ -140,7 +140,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* Responsive CSS — show hamburger below 900px */}
+      {}
       <style>{`
         @media (max-width: 900px) {
           .navDesktop { display: none !important; }

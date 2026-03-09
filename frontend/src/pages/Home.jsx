@@ -39,7 +39,7 @@ const Home = () => {
                 <link rel="canonical" href="https://opencodeshare.vercel.app" />
             </Helmet>
 
-            {/* Hero */}
+            {}
             <section style={{ background: bg, padding: "60px 20px 50px", textAlign: "center", position: "relative", transition: "background 0.3s" }}>
                 <motion.div initial="hidden" animate="show" style={{ maxWidth: 640, margin: "0 auto", position: "relative", zIndex: 1 }}>
                     <motion.div variants={up(0)} style={{
@@ -87,7 +87,7 @@ const Home = () => {
                 <style>{`@media (min-width: 480px) { .heroBtns { flex-direction: row !important; justify-content: center; } }`}</style>
             </section>
 
-            {/* Features */}
+            {}
             <section style={{ background: bg, padding: "30px 20px 60px", transition: "background 0.3s" }}>
                 <div style={{ maxWidth: 800, margin: "0 auto" }}>
                     <div style={{ textAlign: "center", marginBottom: 36 }}>
@@ -121,7 +121,7 @@ const Home = () => {
         `}</style>
             </section>
 
-            {/* CTA */}
+            {}
             <section style={{
                 margin: "0 20px 40px", borderRadius: 20, padding: "36px 24px", textAlign: "center",
                 background: "linear-gradient(135deg, #10b981, #0d9488)", color: "#fff",

@@ -64,7 +64,7 @@ const ContactUs = () => {
                     <p style={{ fontSize: 14, color: t2 }}>Questions, suggestions, or partnerships — we'd love to hear from you.</p>
                 </div>
 
-                {/* Info Cards */}
+                {}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 10, marginBottom: 24 }} className="contactInfoGrid">
                     {infoCards.map((c, i) => {
                         const Icon = c.icon;
@@ -89,7 +89,7 @@ const ContactUs = () => {
                     })}
                 </div>
 
-                {/* Contact Form */}
+                {}
                 <div style={{ background: cardBg, border: `1px solid ${bdr}`, borderRadius: 16, padding: 24 }}>
                     {sent ? (
                         <div style={{ textAlign: "center", padding: "40px 20px", display: "flex", flexDirection: "column", alignItems: "center" }}>

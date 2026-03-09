@@ -33,7 +33,7 @@ const HowItWorks = () => {
             </Helmet>
 
             <div style={{ maxWidth: 620, margin: "0 auto" }}>
-                {/* Header */}
+                {}
                 <div style={{ textAlign: "center", marginBottom: 32 }}>
                     <div style={{
                         display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px",
@@ -50,7 +50,7 @@ const HowItWorks = () => {
                     <p style={{ fontSize: 14, color: t2 }}>Three simple steps to share anything securely.</p>
                 </div>
 
-                {/* Stats */}
+                {}
                 <div style={{
                     display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8,
                     padding: 16, borderRadius: 14, marginBottom: 28,
@@ -70,7 +70,7 @@ const HowItWorks = () => {
                     })}
                 </div>
 
-                {/* Steps */}
+                {}
                 <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
                     {steps.map((s, i) => {
                         const Icon = s.icon;
@@ -98,7 +98,7 @@ const HowItWorks = () => {
                     })}
                 </div>
 
-                {/* CTA */}
+                {}
                 <div style={{ textAlign: "center" }}>
                     <Link to="/text" style={{
                         display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 28px",

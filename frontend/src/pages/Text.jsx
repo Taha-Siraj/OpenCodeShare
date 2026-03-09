@@ -66,10 +66,10 @@ const Text = () => {
                 <link rel="canonical" href="https://opencodeshare.vercel.app/text" />
             </Helmet>
 
-            {/* Container - centered */}
+            {}
             <div style={{ maxWidth: 900, margin: "0 auto" }}>
 
-                {/* Header */}
+                {}
                 <div style={{ textAlign: "center", marginBottom: 32 }}>
                     <h1 className={textMain} style={{ fontSize: 24, fontWeight: 700, marginBottom: 6 }}>
                         Share a <span style={{ color: "#10b981" }}>Snippet</span>
@@ -79,7 +79,7 @@ const Text = () => {
                     </p>
                 </div>
 
-                {/* Form Card */}
+                {}
                 <form onSubmit={submit} className={card} style={{ borderWidth: 1, borderStyle: "solid", borderRadius: 16, padding: 20, marginBottom: 28 }}>
                     <textarea
                         value={input}
@@ -127,7 +127,7 @@ const Text = () => {
                     </div>
                 </form>
 
-                {/* Snippets Section */}
+                {}
                 <div>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                         <h3 className={textMain} style={{ fontSize: 14, fontWeight: 600, display: "flex", alignItems: "center", gap: 8 }}>

@@ -1,7 +1,6 @@
 import { supabase } from "../config/supabaseClient.js";
 import { v4 as uuidv4 } from "uuid";
 
-// --- UPLOAD ---
 export const upload = async (req, res) => {
   const files = req.files;
   if (!files || files.length === 0) {
@@ -52,10 +51,8 @@ export const upload = async (req, res) => {
   }
 };
 
-// --- GET FILES ---
 export const getFiles = async (req, res) => {
   try {
-    // Await cleanup! Vercel kills background tasks immediately after response
     await cleanupExpiredFiles();
 
     const { data: dbFiles, error: dbError } = await supabase
@@ -82,7 +79,6 @@ export const getFiles = async (req, res) => {
   }
 };
 
-// --- DOWNLOAD ---
 export const downloadFile = async (req, res) => {
   try {
     const storedName = req.params.name;
@@ -105,7 +101,6 @@ export const downloadFile = async (req, res) => {
   }
 };
 
-// --- PREVIEW (inline) ---
 export const previewFile = async (req, res) => {
   try {
     const storedName = req.params.name;
@@ -125,7 +120,6 @@ export const previewFile = async (req, res) => {
   }
 };
 
-// --- AUTO CLEANUP (30 seconds) ---
 export const cleanupExpiredFiles = async () => {
   try {
     const thirtySecondsAgo = new Date(Date.now() - 30 * 1000).toISOString();
@@ -137,12 +131,10 @@ export const cleanupExpiredFiles = async () => {
 
     if (fetchError || !expired || expired.length === 0) return;
 
-    // Delete from storage
     const names = expired.map(f => f.stored_name);
     const { error: storageError } = await supabase.storage.from("files").remove(names);
     if (storageError) console.error("Storage cleanup error:", storageError.message);
 
-    // Delete from table
     const { error: dbError } = await supabase
       .from("file_metadata")
       .delete()

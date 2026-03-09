@@ -10,7 +10,6 @@ export const API = axios.create({
     },
 });
 
-// Retry on network errors (1 retry)
 API.interceptors.response.use(
     (res) => res,
     async (err) => {
